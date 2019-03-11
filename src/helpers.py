@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 def makeFigure():
     return plt.figure()
@@ -20,6 +21,9 @@ def histogram(x, fig, position, label):
     plt.ylabel('Frequency')
 
     
+def correlationMatrix(dataframe):
+    corr = dataframe.corr()
+    sns.heatmap(corr, annot=True, xticklabels=corr.columns.values, yticklabels=corr.columns.values, fmt='.3f')
 
 
 def show():

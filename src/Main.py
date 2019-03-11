@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn import preprocessing
 from sklearn.metrics import mean_squared_error
+from pandas.io.formats.style import Styler
 import helpers
 
 #load data
@@ -24,7 +25,7 @@ for i in range(8):
     helpers.scatterPlotData(x.iloc[:,i], y.iloc[:,0], 'X'+str(i+1), 'Y1', i+1, fig_one)
     helpers.scatterPlotData(x.iloc[:,i], y.iloc[:,1], 'X'+str(i+1), 'Y2', i+1, fig_two)
 
-helpers.show()
+#helpers.show()                                         #commented out to facilitate developer - REMOVE AT THE END
 
 
 #X Value Histograms
@@ -32,15 +33,20 @@ fig_three = helpers.makeFigure()
 for i in range(8):
     helpers.histogram(x.iloc[:, i], fig_three, i+1, 'X'+str(i+1))
 
-helpers.show()
-
 #Y Value Histograms
 fig_four = helpers.makeFigure()    
 for i in range(2):
     helpers.histogram(y.iloc[:, i], fig_four, i+1, 'Y'+str(i+1))
 
-helpers.show()
+#helpers.show()                                         #commented out to facilitate developer - REMOVE AT THE END
 
+#Correlation Matrix
+fig_five = helpers.makeFigure()
+helpers.correlationMatrix(x)
+correlation = x.corr()
+print(correlation)
+#correlation.style.background_gradient(cmap='coolwarm', axis=None).set_precision(2)
+helpers.show()
 
 #normalize the data
 min_max_scaler = preprocessing.MinMaxScaler()
