@@ -44,7 +44,8 @@ for i in range(2):
 fig_five = helpers.makeFigure()
 helpers.correlationMatrix(x)
 correlation = x.corr()
-print(correlation)
+df = correlation.round(3)
+print(df)
 #correlation.style.background_gradient(cmap='coolwarm', axis=None).set_precision(2)
 helpers.show()
 

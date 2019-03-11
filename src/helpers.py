@@ -21,9 +21,10 @@ def histogram(x, fig, position, label):
     plt.ylabel('Frequency')
 
     
-def correlationMatrix(dataframe):
+def correlationMatrix(dataframe): 
     corr = dataframe.corr()
-    sns.heatmap(corr, annot=True, xticklabels=corr.columns.values, yticklabels=corr.columns.values, fmt='.3f')
+    labels = ["X1", "X2","X3","X4","X5","X6","X7","X8"]
+    sns.heatmap(corr, annot=True, xticklabels=labels, yticklabels=labels, fmt='.3f')
 
 
 def show():
