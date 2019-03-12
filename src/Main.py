@@ -60,13 +60,18 @@ x_normalized = normalized_data.iloc[0:, 0:8]
 #Remove the training set 
 x_training, x_testing, y_training, y_testing = train_test_split(x_normalized, y, test_size = 0.2, random_state = 0)
 
-#K Fold Cross Validation (K=5) & Training
-x_training, x_validation, y_training, y_valiation = train_test_split(x_training, y_training, test_size = 0.2, random_state = 0)
+#K Fold Cross Validation (K=5) & Training 
+#Using cross_val_score              
+#x_training, x_validation, y_training, y_valiation = train_test_split(x_training, y_training, test_size = 0.2, random_state = 0)
 linreg = LinearRegression()
-scores = cross_val_score(linreg, x_training, y_training, scoring = 'neg_mean_absolute_error' ,cv=5)
-print(scores)
+mean_absolute = cross_val_score(linreg, x_training, y_training, scoring = 'neg_mean_absolute_error' ,cv=5)
+print(mean_absolute)
+mean_sqare = cross_val_score(linreg, x_training, y_training, scoring = 'neg_mean_squared_error' ,cv=5)
+print(mean_sqare)
+
+#using GridSearchCV & Pipeline
 
 #train the model & calculate the cost
-linreg.fit(x,y)
+linreg.fit(x_normalized,y)
 y_hat = linreg.predict(x_normalized)
 print('MSE = ', mean_squared_error(y,y_hat))
