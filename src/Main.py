@@ -3,7 +3,8 @@ import pandas as pd
 from sklearn.linear_model import LinearRegression
 from sklearn import preprocessing
 from sklearn.metrics import mean_squared_error
-from pandas.io.formats.style import Styler
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
 import helpers
 
 #load data
@@ -43,10 +44,9 @@ for i in range(2):
 #Correlation Matrix
 fig_five = helpers.makeFigure()
 helpers.correlationMatrix(x)
-correlation = x.corr()
-df = correlation.round(3)
-print(df)
-#correlation.style.background_gradient(cmap='coolwarm', axis=None).set_precision(2)
+# correlation = x.corr()
+# df = correlation.round(3)
+# print(df)
 helpers.show()
 
 #normalize the data
@@ -55,10 +55,18 @@ scaled_data = min_max_scaler.fit_transform(data_values)
 normalized_data = pd.DataFrame(scaled_data)
 
 x_normalized = normalized_data.iloc[0:, 0:8]
-y_normalized = normalized_data.iloc[0:, 8:10]
+#y_normalized = normalized_data.iloc[0:, 8:10]
+
+#Remove the training set 
+x_training, x_testing, y_training, y_testing = train_test_split(x_normalized, y, test_size = 0.2, random_state = 0)
+
+#K Fold Cross Validation (K=5) & Training
+x_training, x_validation, y_training, y_valiation = train_test_split(x_training, y_training, test_size = 0.2, random_state = 0)
+linreg = LinearRegression()
+scores = cross_val_score(linreg, x_training, y_training, scoring = 'neg_mean_absolute_error' ,cv=5)
+print(scores)
 
 #train the model & calculate the cost
-linreg = LinearRegression()
 linreg.fit(x,y)
-y_hat = linreg.predict(x)
+y_hat = linreg.predict(x_normalized)
 print('MSE = ', mean_squared_error(y,y_hat))
