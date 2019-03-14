@@ -26,7 +26,7 @@ def StandardLinearRegression(x, y, output):
         grid = [{'polynomial__degree': [1]}] 
 
         #cross validation
-        clf = GridSearchCV(pipeline, param_grid = grid, cv=10, refit = True)
+        clf = GridSearchCV(pipeline, param_grid = grid, cv=5, refit = True)
 
         #fit and tune the model
         clf.fit(x_training, y_training)

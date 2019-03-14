@@ -23,9 +23,9 @@ def RidgeRegression(x, y, output):
                 ('polynomial', PolynomialFeatures()),
                 ('model', ridge)])
 
-        grid = {'model__alpha': [1, 0.5, 0.2, 0.1, 0.01, 0.001],
+        grid = {'model__alpha': [1, 0.5, 0.2, 0.1, 0.01],
             'model__solver': ["cholesky"],
-            'polynomial__degree': [1]} 
+            'polynomial__degree': range(1,6)} 
 
         #cross validation
         clf = GridSearchCV(pipeline, param_grid = grid, cv=5, refit = True)
