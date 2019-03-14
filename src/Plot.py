@@ -1,6 +1,5 @@
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LinearRegression
 from sklearn import preprocessing
 import helpers
 
@@ -30,13 +29,25 @@ fig_four = helpers.makeFigure()
 for i in range(2):
     helpers.histogram(y.iloc[:, i], fig_four, i+1, 'Y'+str(i+1))
 
-#Correlation Matrix
+#Correlation Matrix for X
 fig_five = helpers.makeFigure()
-helpers.correlationMatrix(x)
+labels = ["X1", "X2","X3","X4","X5","X6","X7","X8"]
+helpers.correlationMatrix(x, labels)
 correlation = x.corr()
+df = correlation.round(3)
+print("Correlation Matrix for X")
+print(df)
+
+#Correlation Matrix for X and y
+fig_six = helpers.makeFigure()
+labels = ["X1", "X2","X3","X4","X5","X6","X7","X8", "Y1", "Y2"]
+helpers.correlationMatrix(data, labels)
+correlation = x.corr()
+print("Correlation Matrix for X and y")
 df = correlation.round(3)
 print(df)
 
+#show all the charts/graphs
 helpers.show()
 
 

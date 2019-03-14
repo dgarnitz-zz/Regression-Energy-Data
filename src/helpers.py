@@ -20,12 +20,20 @@ def histogram(x, fig, position, label):
     plt.xlabel(label)
     plt.ylabel('Frequency')
 
-    
-def correlationMatrix(dataframe): 
+def correlationMatrix(dataframe, labels): 
     corr = dataframe.corr()
-    labels = ["X1", "X2","X3","X4","X5","X6","X7","X8"]
     sns.heatmap(corr, annot=True, xticklabels=labels, yticklabels=labels, fmt='.3f')
 
+def plotResults(y_actual, y_predicted, xlabel, ylabel, fig):
+    ax = fig.add_subplot(111)
+    
+    ax.grid(color = 'lightgray', linestyle = '-', linewidth = 1)
+    ax.set_axisbelow(True)
+
+    ax.scatter(y_actual, y_predicted, color = 'red', alpha = .5, s = 140 , marker = '.')
+    ax.plot(y_actual, y_actual, color = 'blue', alpha = .5)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
 
 def show():
     plt.show()
