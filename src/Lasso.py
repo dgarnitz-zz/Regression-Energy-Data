@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import Ridge
+from sklearn.linear_model import Lasso
 from sklearn import preprocessing
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
@@ -13,7 +13,7 @@ def RidgeRegression(x, y, output):
         #remove the training set 
         x_training, x_testing, y_training, y_testing = train_test_split(x, y, test_size = 0.2, random_state = 123) 
 
-        ridge = Ridge()
+        lasso = Lasso()
 
         #standardize the data
         scaler = preprocessing.StandardScaler().fit(x_training)
@@ -21,10 +21,9 @@ def RidgeRegression(x, y, output):
         #create pipeline & grid
         pipeline = Pipeline([('scaler', scaler), 
                 ('polynomial', PolynomialFeatures()),
-                ('model', ridge)])
+                ('model', lasso)])
 
         grid = {'model__alpha': [1, 0.5, 0.2, 0.1, 0.01, 0.001],
-            'model__solver': ["cholesky"],
             'polynomial__degree': [1]} 
 
         #cross validation

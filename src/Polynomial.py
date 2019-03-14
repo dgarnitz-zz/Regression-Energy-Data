@@ -23,10 +23,11 @@ def PolynomialRegression(x, y, output):
                 ('polynomial', PolynomialFeatures()),
                 ('model', linreg)])
 
-        grid = [{'polynomial__degree': range(0,6)}] 
+        grid = {'polynomial__degree': range(1,6),
+                'polynomial__include_bias': ["False"]} 
 
         #cross validation
-        clf = GridSearchCV(pipeline, param_grid = grid, cv=10, refit = True)
+        clf = GridSearchCV(pipeline, param_grid = grid, cv=5, refit = True)
 
         #fit and tune the model
         clf.fit(x_training, y_training)
